@@ -1,0 +1,130 @@
+import { StyleSheet } from 'react-native';
+
+export const loginStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F0F4F8',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    padding: 20,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  logo: {
+    width: 200,
+    height: 100,
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 46,
+    fontWeight: 'bold',
+    color: '#1E3A8A',
+    marginBottom: 5,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#64748B',
+  },
+  tabsContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#E2E8F0',
+    borderRadius: 12,
+    padding: 4,
+    marginBottom: 30,
+  },
+  tab: {
+    flex: 1,
+    paddingVertical: 12,
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+  activeTab: {
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  tabText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#64748B',
+  },
+  activeTabText: {
+    color: '#1E3A8A',
+  },
+  formContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  input: {
+    backgroundColor: '#F8FAFC',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    borderRadius: 10,
+    padding: 15,
+    fontSize: 16,
+    marginBottom: 15,
+    textAlign: 'right',
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F8FAFC',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    borderRadius: 10,
+    marginBottom: 15,
+    position: 'relative',
+  },
+  passwordInput: {
+    flex: 1,
+    padding: 15,
+    fontSize: 16,
+    textAlign: 'right',
+  },
+  eyeIcon: {
+    position: 'absolute',
+    left: 15,
+    padding: 5,
+  },
+  eyeText: {
+    fontSize: 20,
+  },
+  button: {
+    backgroundColor: '#1E3A8A',
+    borderRadius: 10,
+    padding: 16,
+    alignItems: 'center',
+    marginTop: 10,
+    shadowColor: '#1E3A8A',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  linkButton: {
+    marginTop: 15,
+    alignItems: 'center',
+  },
+  linkText: {
+    color: '#3B82F6',
+    fontSize: 14,
+  },
+});
