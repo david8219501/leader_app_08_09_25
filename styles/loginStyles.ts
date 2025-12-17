@@ -1,4 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+const baseWidth = 360;
+const scale = width / baseWidth;
+const normalize = (size: number) => Math.round(size * scale);
 
 export const loginStyles = StyleSheet.create({
   container: {
@@ -8,39 +14,39 @@ export const loginStyles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'center',
-    padding: 20,
+    padding: normalize(20),
   },
   header: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: normalize(40),
   },
   logo: {
-    width: 200,
-    height: 100,
-    marginBottom: 10,
+    width: normalize(200),
+    height: normalize(100),
+    marginBottom: normalize(10),
   },
   title: {
-    fontSize: 46,
+    fontSize: normalize(46),
     fontWeight: 'bold',
     color: '#1E3A8A',
-    marginBottom: 5,
+    marginBottom: normalize(5),
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: normalize(16),
     color: '#64748B',
   },
   tabsContainer: {
     flexDirection: 'row',
     backgroundColor: '#E2E8F0',
-    borderRadius: 12,
-    padding: 4,
-    marginBottom: 30,
+    borderRadius: normalize(12),
+    padding: normalize(4),
+    marginBottom: normalize(30),
   },
   tab: {
     flex: 1,
-    paddingVertical: 12,
+    paddingVertical: normalize(12),
     alignItems: 'center',
-    borderRadius: 8,
+    borderRadius: normalize(8),
   },
   activeTab: {
     backgroundColor: '#FFFFFF',
@@ -51,7 +57,7 @@ export const loginStyles = StyleSheet.create({
     elevation: 3,
   },
   tabText: {
-    fontSize: 16,
+    fontSize: normalize(16),
     fontWeight: '600',
     color: '#64748B',
   },
@@ -60,8 +66,8 @@ export const loginStyles = StyleSheet.create({
   },
   formContainer: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 20,
+    borderRadius: normalize(16),
+    padding: normalize(20),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -72,10 +78,10 @@ export const loginStyles = StyleSheet.create({
     backgroundColor: '#F8FAFC',
     borderWidth: 1,
     borderColor: '#E2E8F0',
-    borderRadius: 10,
-    padding: 15,
-    fontSize: 16,
-    marginBottom: 15,
+    borderRadius: normalize(10),
+    padding: normalize(15),
+    fontSize: normalize(16),
+    marginBottom: normalize(15),
     textAlign: 'right',
   },
   passwordContainer: {
@@ -84,30 +90,31 @@ export const loginStyles = StyleSheet.create({
     backgroundColor: '#F8FAFC',
     borderWidth: 1,
     borderColor: '#E2E8F0',
-    borderRadius: 10,
-    marginBottom: 15,
+    borderRadius: normalize(10),
+    marginBottom: normalize(15),
     position: 'relative',
   },
   passwordInput: {
     flex: 1,
-    padding: 15,
-    fontSize: 16,
+    padding: normalize(15),
+    paddingLeft: normalize(50),
+    fontSize: normalize(16),
     textAlign: 'right',
   },
   eyeIcon: {
     position: 'absolute',
-    left: 15,
-    padding: 5,
+    left: normalize(15),
+    padding: normalize(5),
   },
   eyeText: {
-    fontSize: 20,
+    fontSize: normalize(20),
   },
   button: {
     backgroundColor: '#1E3A8A',
-    borderRadius: 10,
-    padding: 16,
+    borderRadius: normalize(10),
+    padding: normalize(16),
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: normalize(10),
     shadowColor: '#1E3A8A',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -116,15 +123,15 @@ export const loginStyles = StyleSheet.create({
   },
   buttonText: {
     color: '#FFFFFF',
-    fontSize: 18,
+    fontSize: normalize(18),
     fontWeight: 'bold',
   },
   linkButton: {
-    marginTop: 15,
+    marginTop: normalize(15),
     alignItems: 'center',
   },
   linkText: {
     color: '#3B82F6',
-    fontSize: 14,
+    fontSize: normalize(14),
   },
 });

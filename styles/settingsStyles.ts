@@ -1,0 +1,163 @@
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
+const baseWidth = 360;
+const scale = width / baseWidth;
+const normalize = (size: number) => Math.round(size * scale);
+
+export const settingsStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F0F4F8',
+  },
+  header: {
+    padding: normalize(20),
+    paddingTop: height * 0.08,
+    backgroundColor: '#1E3A8A',
+  },
+  title: {
+    fontSize: normalize(28),
+    fontWeight: 'bold',
+    color: '#FFF',
+    textAlign: 'right',
+  },
+  subtitle: {
+    fontSize: normalize(14),
+    color: '#93C5FD',
+    textAlign: 'right',
+    marginTop: normalize(5),
+  },
+  section: {
+    backgroundColor: '#FFF',
+    marginHorizontal: normalize(20),
+    marginTop: normalize(20),
+    padding: normalize(20),
+    borderRadius: normalize(12),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  sectionHeader: {
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    marginBottom: normalize(15),
+    gap: normalize(10),
+  },
+  sectionTitle: {
+    fontSize: normalize(18),
+    fontWeight: 'bold',
+    color: '#1E293B',
+  },
+  input: {
+    backgroundColor: '#F8FAFC',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    borderRadius: normalize(10),
+    padding: normalize(15),
+    fontSize: normalize(16),
+    marginBottom: normalize(15),
+    textAlign: 'right',
+  },
+  button: {
+    backgroundColor: '#1E3A8A',
+    borderRadius: normalize(10),
+    padding: normalize(16),
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: normalize(8),
+    shadowColor: '#1E3A8A',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  buttonText: {
+    color: '#FFF',
+    fontSize: normalize(16),
+    fontWeight: 'bold',
+  },
+  linkButton: {
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: normalize(15),
+    backgroundColor: '#F8FAFC',
+    borderRadius: normalize(10),
+    marginBottom: normalize(10),
+  },
+  linkButtonText: {
+    flex: 1,
+    fontSize: normalize(16),
+    color: '#1E293B',
+    marginRight: normalize(10),
+    textAlign: 'right',
+  },
+  infoRow: {
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: normalize(12),
+    borderBottomWidth: 1,
+    borderBottomColor: '#F1F5F9',
+  },
+  infoLabel: {
+    fontSize: normalize(16),
+    color: '#64748B',
+  },
+  infoValue: {
+    fontSize: normalize(16),
+    color: '#1E293B',
+    fontWeight: '600',
+  },
+  logoutButton: {
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FEF2F2',
+    marginHorizontal: normalize(20),
+    marginTop: normalize(30),
+    marginBottom: normalize(40),
+    padding: normalize(16),
+    borderRadius: normalize(10),
+    borderWidth: 1,
+    borderColor: '#FEE2E2',
+    gap: normalize(8),
+  },
+  logoutButtonText: {
+    color: '#EF4444',
+    fontSize: normalize(16),
+    fontWeight: 'bold',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '90%',
+    backgroundColor: '#FFF',
+    borderRadius: normalize(20),
+    padding: normalize(20),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 10,
+  },
+  modalHeader: {
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: normalize(20),
+  },
+  modalTitle: {
+    fontSize: normalize(22),
+    fontWeight: 'bold',
+    color: '#1E293B',
+  },
+});

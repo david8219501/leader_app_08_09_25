@@ -8,10 +8,11 @@ import {
   Platform,
   ScrollView,
   Alert,
-  Image,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { loginStyles as styles } from '../styles/_loginStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loginStyles as styles } from '../styles/loginStyles';
+import config from '../config';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -28,7 +29,7 @@ export default function LoginScreen() {
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  
+
   // Password visibility
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showRegisterPassword, setShowRegisterPassword] = useState(false);
@@ -39,6 +40,9 @@ export default function LoginScreen() {
     return emailRegex.test(email);
   };
 
+  // =========================
+  // LOGIN
+  // =========================
   const handleLogin = async () => {
     if (!loginEmail || !loginPassword) {
       Alert.alert('שגיאה', 'אנא מלא את כל השדות');
@@ -51,14 +55,33 @@ export default function LoginScreen() {
     }
 
     try {
-      // TODO: Firebase Authentication
-      console.log('Login:', loginEmail, loginPassword);
-      router.replace('/Welcome');
+      const response = await fetch(`${config.SERVER_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // שמור Token ו-Manager ID
+        await AsyncStorage.setItem('token', data.token);
+        await AsyncStorage.setItem('managerId', data.manager.id.toString());
+        
+        Alert.alert('הצלחה', `שלום ${data.manager.firstName}`);
+        router.replace('/(tabs)/schedule');
+      } else {
+        Alert.alert('שגיאה', data.message);
+      }
     } catch (error) {
-      Alert.alert('שגיאה', 'התחברות נכשלה');
+      Alert.alert('שגיאה', 'לא ניתן להתחבר לשרת');
+      console.log(error);
     }
   };
 
+  // =========================
+  // REGISTER
+  // =========================
   const handleRegister = async () => {
     if (!firstName || !lastName || !phone || !registerEmail || !registerPassword || !confirmPassword) {
       Alert.alert('שגיאה', 'אנא מלא את כל השדות');
@@ -86,14 +109,42 @@ export default function LoginScreen() {
     }
 
     try {
-      // TODO: Firebase Authentication + Create User
-      console.log('Register:', firstName, lastName, phone, registerEmail, registerPassword);
-      router.replace('/Welcome');
+      const response = await fetch(`${config.SERVER_URL}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          phone,
+          email: registerEmail,
+          password: registerPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Alert.alert('הצלחה', 'נרשמת בהצלחה!');
+        setActiveTab('login');
+        // ריסט שדות
+        setFirstName('');
+        setLastName('');
+        setPhone('');
+        setRegisterEmail('');
+        setRegisterPassword('');
+        setConfirmPassword('');
+      } else {
+        Alert.alert('שגיאה', data.message);
+      }
     } catch (error) {
-      Alert.alert('שגיאה', 'הרשמה נכשלה');
+      Alert.alert('שגיאה', 'לא ניתן להתחבר לשרת');
+      console.log(error);
     }
   };
 
+  // =========================
+  // UI
+  // =========================
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -129,7 +180,6 @@ export default function LoginScreen() {
         {/* Content */}
         <View style={styles.formContainer}>
           {activeTab === 'login' ? (
-            // Login Form
             <>
               <TextInput
                 style={styles.input}
@@ -152,7 +202,7 @@ export default function LoginScreen() {
                   secureTextEntry={!showLoginPassword}
                   textAlign="right"
                 />
-                <TouchableOpacity 
+                <TouchableOpacity
                   style={styles.eyeIcon}
                   onPress={() => setShowLoginPassword(!showLoginPassword)}
                 >
@@ -169,7 +219,6 @@ export default function LoginScreen() {
               </TouchableOpacity>
             </>
           ) : (
-            // Register Form
             <>
               <TextInput
                 style={styles.input}
@@ -221,7 +270,7 @@ export default function LoginScreen() {
                   secureTextEntry={!showRegisterPassword}
                   textAlign="right"
                 />
-                <TouchableOpacity 
+                <TouchableOpacity
                   style={styles.eyeIcon}
                   onPress={() => setShowRegisterPassword(!showRegisterPassword)}
                 >
@@ -239,7 +288,7 @@ export default function LoginScreen() {
                   secureTextEntry={!showConfirmPassword}
                   textAlign="right"
                 />
-                <TouchableOpacity 
+                <TouchableOpacity
                   style={styles.eyeIcon}
                   onPress={() => setShowConfirmPassword(!showConfirmPassword)}
                 >

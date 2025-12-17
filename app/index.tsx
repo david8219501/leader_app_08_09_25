@@ -1,13 +1,19 @@
-// app/_index.tsx
-import { useRouter } from 'expo-router';
+// app/index.tsx
 import { useEffect } from 'react';
+import { useRouter } from 'expo-router';
 
 export default function Index() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace('/login'); // מפנה אוטומטית למסך Welcome
+    const isLoggedIn = false; // TODO: Firebase
+    
+    if (isLoggedIn) {
+      router.replace('/(tabs)/schedule');
+    } else {
+      router.replace('/login');
+    }
   }, []);
 
-  return null; // אין צורך להציג משהו
+  return null;
 }

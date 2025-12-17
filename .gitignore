@@ -2,14 +2,20 @@
 
 # dependencies
 node_modules/
+/package-lock.json # קבצי נעילה של NPM - אפשר להוסיף אם משתמשים ב-Yarn/NPM 7+ ורוצים למנוע התנגשויות
+/yarn.lock         # קבצי נעילה של Yarn - אפשר להוסיף אם משתמשים ב-NPM/Yarn 2+ ורוצים למנוע התנגשויות
+/pnpm-lock.yaml    # קבצי נעילה של PNPM
+/out/
+/dist/
+/build/
 
 # Expo
 .expo/
-dist/
 web-build/
 expo-env.d.ts
+/app-example/ # אם זה תיקיית דוגמה שאינה נחוצה ב-Repo
 
-# Native
+# Native (Android/iOS) specific files to ignore
 .kotlin/
 *.orig.*
 *.jks
@@ -17,23 +23,31 @@ expo-env.d.ts
 *.p12
 *.key
 *.mobileprovision
+*.keystore
 
 # Metro
 .metro-health-check*
 
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # macOS
 .DS_Store
+.AppleDouble
+.LSOverride
 *.pem
 
-# local env files
+# Local Environment Files
 .env*.local
+.env*.development.local
+.env*.test.local
+.env*.production.local
 
-# typescript
+# Typescript
 *.tsbuildinfo
 
-app-example
+# IDE/Editor specific files (e.g., VS Code)
+.vscode/
+.idea/
