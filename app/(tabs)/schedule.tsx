@@ -1,5 +1,5 @@
 // app/(tabs)/schedule.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -36,7 +36,6 @@ interface WeekSchedule {
   [key: string]: DaySchedule;
 }
 
-// פונקציה להחזרת יום ראשון של השבוע
 const getWeekStart = (date: Date): Date => {
   const d = new Date(date);
   const day = d.getDay();
@@ -51,8 +50,9 @@ export default function ScheduleScreen() {
   const [syncing, setSyncing] = useState(false);
   const [isTableReady, setIsTableReady] = useState(false);
 
-  const headerScrollRef = React.useRef<ScrollView>(null);
-  const contentScrollRef = React.useRef<ScrollView>(null);
+  const headerScrollRef = useRef<ScrollView>(null);
+  const contentScrollRef = useRef<ScrollView>(null);
+  
   const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
   const shifts = ['morning', 'noon', 'evening'];
   const shiftNames = { morning: 'בוקר', noon: 'צהריים', evening: 'ערב' };
@@ -74,7 +74,32 @@ export default function ScheduleScreen() {
   const [selectedEmployees, setSelectedEmployees] = useState<string[]>([]);
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
-  // טעינת עובדות ומנהלת בעת פתיחה
+  // גלילה אוטומטית לתחילת הטבלה (ימין)
+  const scrollToStart = () => {
+    if (!contentScrollRef.current || !headerScrollRef.current) return;
+    
+    // איפוס מיקום
+    contentScrollRef.current.scrollTo({ x: 0, y: 0, animated: false });
+    headerScrollRef.current.scrollTo({ x: 0, y: 0, animated: false });
+    
+    // גלילה לסוף (שב-RTL זה הצד הימני)
+    setTimeout(() => {
+      contentScrollRef.current?.scrollToEnd({ animated: false });
+      headerScrollRef.current?.scrollToEnd({ animated: false });
+    }, 50);
+  };
+
+  // הפעלת גלילה כשהטבלה מוכנה
+  useEffect(() => {
+    if (isTableReady) {
+      const timer = setTimeout(() => {
+        scrollToStart();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isTableReady]);
+
+  // טעינת עובדות ומנהלת
   useEffect(() => {
     const loadTokenAndEmployees = async () => {
       try {
@@ -84,7 +109,6 @@ export default function ScheduleScreen() {
 
         setToken(savedToken);
 
-        // שליפת מנהלת
         const managerResp = await fetch(`${config.SERVER_URL}/manager/profile`, {
           headers: { Authorization: `Bearer ${savedToken}` },
         });
@@ -100,7 +124,6 @@ export default function ScheduleScreen() {
           };
         }
 
-        // שליפת עובדות
         const empResp = await fetch(`${config.SERVER_URL}/employees`, {
           headers: { Authorization: `Bearer ${savedToken}` },
         });
@@ -112,7 +135,6 @@ export default function ScheduleScreen() {
           lastName: e.last_name,
         }));
 
-        // איחוד מנהלת + עובדות
         if (managerEmployee) {
           setEmployees([managerEmployee, ...employeesList]);
         } else {
@@ -129,7 +151,7 @@ export default function ScheduleScreen() {
     loadTokenAndEmployees();
   }, []);
 
-  // רענון עובדות כל פעם שנכנסים לעמוד
+  // רענון עובדות בכניסה למסך
   useFocusEffect(
     React.useCallback(() => {
       const refreshEmployees = async () => {
@@ -137,7 +159,6 @@ export default function ScheduleScreen() {
         if (!savedToken) return;
 
         try {
-          // שליפת מנהלת
           const managerResp = await fetch(`${config.SERVER_URL}/manager/profile`, {
             headers: { Authorization: `Bearer ${savedToken}` },
           });
@@ -153,7 +174,6 @@ export default function ScheduleScreen() {
             };
           }
 
-          // שליפת עובדות
           const empResp = await fetch(`${config.SERVER_URL}/employees`, {
             headers: { Authorization: `Bearer ${savedToken}` },
           });
@@ -165,7 +185,6 @@ export default function ScheduleScreen() {
               lastName: e.last_name,
             }));
 
-            // איחוד מנהלת + עובדות
             if (managerEmployee) {
               setEmployees([managerEmployee, ...employeesList]);
             } else {
@@ -173,7 +192,6 @@ export default function ScheduleScreen() {
             }
           }
 
-          // גם טעינת משמרות מחדש
           loadShifts();
         } catch (error) {
           console.error('Error refreshing employees:', error);
@@ -184,27 +202,10 @@ export default function ScheduleScreen() {
     }, [])
   );
 
-  // טעינת משמרות כשמשנים שבוע
+  // טעינת משמרות בהחלפת שבוע
   useEffect(() => {
     loadShifts();
   }, [currentWeekStart]);
-
-  // גלילה אוטומטית כשהטבלה מוכנה
-  useEffect(() => {
-    if (isTableReady) {
-      scrollToStart();
-    }
-  }, [isTableReady]);
-
-  const scrollToStart = () => {
-    if (contentScrollRef.current && headerScrollRef.current) {
-      const cellWidth = 120;
-      const shiftWidth = 80;
-      const totalWidth = shiftWidth + days.length * cellWidth;
-      contentScrollRef.current.scrollTo({ x: totalWidth, y: 0, animated: false });
-      headerScrollRef.current.scrollTo({ x: totalWidth, y: 0, animated: false });
-    }
-  };
 
   const loadShifts = async () => {
     try {
@@ -291,13 +292,11 @@ export default function ScheduleScreen() {
       setSyncing(true);
       const weekStart = formatDateForServer(currentWeekStart);
 
-      // מחיקת משמרות ישנות
       await fetch(`${config.SERVER_URL}/shifts/${weekStart}/${selectedDay}/${selectedShift}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` },
       });
 
-      // שמירת משמרות חדשות
       for (const employeeId of selectedEmployees) {
         const response = await fetch(`${config.SERVER_URL}/shifts`, {
           method: 'POST',
@@ -480,6 +479,11 @@ export default function ScheduleScreen() {
             showsHorizontalScrollIndicator={true}
             ref={contentScrollRef}
             style={styles.horizontalScroll}
+            onLayout={() => {
+              if (!isTableReady) {
+                setIsTableReady(true);
+              }
+            }}
             onScroll={(event) => {
               const offsetX = event.nativeEvent.contentOffset.x;
               if (headerScrollRef.current) {
@@ -487,11 +491,6 @@ export default function ScheduleScreen() {
               }
             }}
             scrollEventThrottle={16}
-            onLayout={() => {
-              if (!isTableReady) {
-                setIsTableReady(true);
-              }
-            }}
           >
             <View style={styles.tableContainer}>
               {shifts

@@ -1,12 +1,21 @@
-import React from 'react';
+// app/_layout.tsx
+import React, { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
-import { I18nManager } from 'react-native';
+import { I18nManager, Platform } from 'react-native';
+import * as Updates from 'expo-updates';
 
-// 🔒 נעילת RTL ברמת האפליקציה (לפני רינדור)
-I18nManager.allowRTL(true);
-I18nManager.forceRTL(true);
+// 🔒 אכיפת RTL ברמת האפליקציה
+if (!I18nManager.isRTL) {
+  I18nManager.allowRTL(true);
+  I18nManager.forceRTL(true);
+  
+  // ⚠️ רק ב-production - אפליקציה צריכה להיטען מחדש
+  if (!__DEV__ && Platform.OS !== 'web') {
+    Updates.reloadAsync();
+  }
+}
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({

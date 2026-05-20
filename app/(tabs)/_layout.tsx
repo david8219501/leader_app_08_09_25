@@ -1,4 +1,3 @@
-// app/(tabs)/_layout.tsx
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -15,6 +14,7 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
+        headerShown: false,
         tabBarActiveTintColor: '#1E3A8A',
         tabBarInactiveTintColor: '#94A3B8',
         tabBarStyle: {
@@ -29,7 +29,6 @@ export default function TabsLayout() {
           fontSize: normalize(12),
           fontWeight: '600',
         },
-        headerShown: false,
       }}
     >
       <Tabs.Screen
@@ -41,6 +40,7 @@ export default function TabsLayout() {
           ),
         }}
       />
+
       <Tabs.Screen
         name="employees"
         options={{
@@ -50,6 +50,7 @@ export default function TabsLayout() {
           ),
         }}
       />
+
       <Tabs.Screen
         name="schedule"
         options={{
