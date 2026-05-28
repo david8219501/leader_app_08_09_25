@@ -1,4 +1,4 @@
-const SERVER_URL = "https://leaderappserver080925-production.up.railway.app";
+const SERVER_URL = "https://us-central1-server-e98bb.cloudfunctions.net/api";
 
 export default {
   SERVER_URL,

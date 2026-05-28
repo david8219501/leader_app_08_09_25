@@ -1,0 +1,104 @@
+[debug] [2026-05-28T19:54:34.159Z] ----------------------------------------------------------------------
+[debug] [2026-05-28T19:54:34.163Z] Command:       /nix/store/ws50yvm6vzlzf7jzz6n7xh4szddrack1-nodejs-20.19.1/bin/node /nix/store/gm9mcvzb17vv8cla08khrg29vxn3sq4r-firebase-tools-15.1.0/lib/node_modules/firebase-tools/lib/bin/firebase.js functions:shell
+[debug] [2026-05-28T19:54:34.164Z] CLI Version:   15.1.0
+[debug] [2026-05-28T19:54:34.164Z] Platform:      linux
+[debug] [2026-05-28T19:54:34.164Z] Node Version:  v20.19.1
+[debug] [2026-05-28T19:54:34.164Z] Time:          Thu May 28 2026 19:54:34 GMT+0000 (Coordinated Universal Time)
+[debug] [2026-05-28T19:54:34.165Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-05-28T19:54:40.056Z] Checked if tokens are valid: true, expires at: 1779999838232
+[debug] [2026-05-28T19:54:40.057Z] Checked if tokens are valid: true, expires at: 1779999838232
+[debug] [2026-05-28T19:54:40.060Z] >>> [apiv2][query] GET https://monospace-pa.googleapis.com/v1/workspaces/leader260526-55505451 [none]
+[debug] [2026-05-28T19:54:40.856Z] <<< [apiv2][status] GET https://monospace-pa.googleapis.com/v1/workspaces/leader260526-55505451 200
+[debug] [2026-05-28T19:54:40.856Z] <<< [apiv2][body] GET https://monospace-pa.googleapis.com/v1/workspaces/leader260526-55505451 {"workspaceId":"leader260526-55505451","name":"leader_app","workspaceRedirectUrl":"firebase-leader260526-1779810520765.cluster-qmsugz722jg6qxf6wapsr2r5hc.cloudworkstations.dev","status":"WORKSPACE_STATUS_RUNNING","lastAccessDatetime":"2026-05-28T19:31:16.356617Z","workspaceTemplate":"WORKSPACE_TEMPLATE_BLANK_WEB","owner":"SELF","serviceAccountEmail":"msp-7442277251419184278@monospace-per-ws-sa-2.iam.gserviceaccount.com","gitRepoUrl":"https://github.com/david8219501/leader_app_08_09_25.git","enableNix":true,"ownerEmail":"8487353@gmail.com","workstationAccessToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2Nsb3VkLmdvb2dsZS5jb20vd29ya3N0YXRpb25zIiwiYXVkIjoiZmlyZWJhc2UtbGVhZGVyMjYwNTI2LTE3Nzk4MTA1MjA3NjUuY2x1c3Rlci1xbXN1Z3o3MjJqZzZxeGY2d2Fwc3IycjVoYy5jbG91ZHdvcmtzdGF0aW9ucy5kZXYiLCJpYXQiOjE3Nzk5OTgwODAsImV4cCI6MTc4MDA4NDQ4MH0.N6qWE0_EeE1wY_AUAaQfZmNvr9gJMaZAdRypqCJ3yDuyjtkUj26SmBFVMaUX1uhGPikXCDkbmIfHdbpzHy0GH-CKiupEJaguq70XA4afyf9Xa00HYL80bGR9WisvwBvPNRaY8I6siaJisZ-fCTrTWu_4Is5WCcl8JNQKKvLSPuWsHgSN-otsPTsavhFHadNosmQH5yUOGkUIO4t62B8hBW40XxNjbO3UX2l48R5OOjSsFsdxyEqvtJ4fKKpmrnVtl1hnyNIN4swB8R47leU9_6SWAhYmma7Ybi3liS4NkLljEaY0lotfRe8edkaykmdWu1Vl2oZdgHa8kMUGojjvMw","firebaseProjectId":"server-e98bb"}
+[debug] [2026-05-28T19:54:40.858Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2026-05-28T19:54:40.858Z] > authorizing via signed-in user (8487353@gmail.com)
+[debug] [2026-05-28T19:54:40.859Z] [iam] checking project server-e98bb for permissions ["firebase.projects.get"]
+[debug] [2026-05-28T19:54:40.860Z] Checked if tokens are valid: true, expires at: 1779999838232
+[debug] [2026-05-28T19:54:40.860Z] Checked if tokens are valid: true, expires at: 1779999838232
+[debug] [2026-05-28T19:54:40.860Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/server-e98bb:testIamPermissions [none]
+[debug] [2026-05-28T19:54:40.860Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/server-e98bb:testIamPermissions x-goog-quota-user=projects/server-e98bb
+[debug] [2026-05-28T19:54:40.860Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/server-e98bb:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-05-28T19:54:41.016Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/server-e98bb:testIamPermissions 200
+[debug] [2026-05-28T19:54:41.016Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/server-e98bb:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-05-28T19:54:41.018Z] Emulator locator file path: /tmp/hub-server-e98bb.json
+[warn] ⚠  functions: Error when trying to check port 5000 on ::1: Error: listen EADDRNOTAVAIL: address not available ::1:5000 {"metadata":{"emulator":{"name":"functions"},"message":"Error when trying to check port 5000 on ::1: Error: listen EADDRNOTAVAIL: address not available ::1:5000"}}
+[warn] ⚠  functions: Port 5000 is available on 127.0.0.1 but not ::1. This may cause issues with some clients. {"metadata":{"emulator":{"name":"functions"},"message":"Port 5000 is available on 127.0.0.1 but not ::1. This may cause issues with some clients."}}
+[warn] ⚠  functions: If you encounter connectivity issues, consider switching to a different port or explicitly specifying "host": "<ip address>" instead of hostname in firebase.json {"metadata":{"emulator":{"name":"functions"},"message":"If you encounter connectivity issues, consider switching to a different port or explicitly specifying \u001b[33m\"host\": \"<ip address>\"\u001b[39m instead of hostname in firebase.json"}}
+[debug] [2026-05-28T19:57:55.189Z] ----------------------------------------------------------------------
+[debug] [2026-05-28T19:57:55.192Z] Command:       /nix/store/ws50yvm6vzlzf7jzz6n7xh4szddrack1-nodejs-20.19.1/bin/node /nix/store/gm9mcvzb17vv8cla08khrg29vxn3sq4r-firebase-tools-15.1.0/lib/node_modules/firebase-tools/lib/bin/firebase.js functions:shell
+[debug] [2026-05-28T19:57:55.193Z] CLI Version:   15.1.0
+[debug] [2026-05-28T19:57:55.193Z] Platform:      linux
+[debug] [2026-05-28T19:57:55.193Z] Node Version:  v20.19.1
+[debug] [2026-05-28T19:57:55.193Z] Time:          Thu May 28 2026 19:57:55 GMT+0000 (Coordinated Universal Time)
+[debug] [2026-05-28T19:57:55.193Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-05-28T19:57:57.704Z] Checked if tokens are valid: true, expires at: 1779999838232
+[debug] [2026-05-28T19:57:57.705Z] Checked if tokens are valid: true, expires at: 1779999838232
+[debug] [2026-05-28T19:57:57.708Z] >>> [apiv2][query] GET https://monospace-pa.googleapis.com/v1/workspaces/leader260526-55505451 [none]
+[debug] [2026-05-28T19:57:58.463Z] <<< [apiv2][status] GET https://monospace-pa.googleapis.com/v1/workspaces/leader260526-55505451 200
+[debug] [2026-05-28T19:57:58.464Z] <<< [apiv2][body] GET https://monospace-pa.googleapis.com/v1/workspaces/leader260526-55505451 {"workspaceId":"leader260526-55505451","name":"leader_app","workspaceRedirectUrl":"firebase-leader260526-1779810520765.cluster-qmsugz722jg6qxf6wapsr2r5hc.cloudworkstations.dev","status":"WORKSPACE_STATUS_RUNNING","lastAccessDatetime":"2026-05-28T19:31:16.356617Z","workspaceTemplate":"WORKSPACE_TEMPLATE_BLANK_WEB","owner":"SELF","serviceAccountEmail":"msp-7442277251419184278@monospace-per-ws-sa-2.iam.gserviceaccount.com","gitRepoUrl":"https://github.com/david8219501/leader_app_08_09_25.git","enableNix":true,"ownerEmail":"8487353@gmail.com","workstationAccessToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2Nsb3VkLmdvb2dsZS5jb20vd29ya3N0YXRpb25zIiwiYXVkIjoiZmlyZWJhc2UtbGVhZGVyMjYwNTI2LTE3Nzk4MTA1MjA3NjUuY2x1c3Rlci1xbXN1Z3o3MjJqZzZxeGY2d2Fwc3IycjVoYy5jbG91ZHdvcmtzdGF0aW9ucy5kZXYiLCJpYXQiOjE3Nzk5OTgyNzgsImV4cCI6MTc4MDA4NDY3OH0.EAft5XLc8daLHM-27HEw8ZkSTxdt7OrpRWcYcSJqip4fnzM2vc6H5nrlAiAAmeAHf-HPSlp1etcUTJEWrpxd0e1tiuqFD6tcmg7zs19q1XHwJAScQ9RW78ByC6XuYoJjrDxoXodxbsy3mtz2BVbM1eqqPXd4XWpcZqmdWvWgBE3lBF6k4ZG02jIxVej5mYi-XO2Abt1lM966pfhhu-QEr9OYxV9WeMcJcdI4ssvwJ2T8_ULFoaAzws3j8Mcaq3QfDpGWPNbFOpHjmdZKOR0wduL8BhAerkPKVfO_KShiEV7NdohIjPgUFtXE5Tv-SZyxfMcrCrHd5w1zwbzF7pWkbg","firebaseProjectId":"server-e98bb"}
+[debug] [2026-05-28T19:57:58.465Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2026-05-28T19:57:58.467Z] > authorizing via signed-in user (8487353@gmail.com)
+[debug] [2026-05-28T19:57:58.467Z] [iam] checking project server-e98bb for permissions ["firebase.projects.get"]
+[debug] [2026-05-28T19:57:58.468Z] Checked if tokens are valid: true, expires at: 1779999838232
+[debug] [2026-05-28T19:57:58.468Z] Checked if tokens are valid: true, expires at: 1779999838232
+[debug] [2026-05-28T19:57:58.468Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/server-e98bb:testIamPermissions [none]
+[debug] [2026-05-28T19:57:58.468Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/server-e98bb:testIamPermissions x-goog-quota-user=projects/server-e98bb
+[debug] [2026-05-28T19:57:58.468Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/server-e98bb:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-05-28T19:57:59.113Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/server-e98bb:testIamPermissions 200
+[debug] [2026-05-28T19:57:59.114Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/server-e98bb:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-05-28T19:57:59.115Z] Emulator locator file path: /tmp/hub-server-e98bb.json
+[warn] ⚠  functions: Error when trying to check port 5000 on ::1: Error: listen EADDRNOTAVAIL: address not available ::1:5000 {"metadata":{"emulator":{"name":"functions"},"message":"Error when trying to check port 5000 on ::1: Error: listen EADDRNOTAVAIL: address not available ::1:5000"}}
+[warn] ⚠  functions: Port 5000 is available on 127.0.0.1 but not ::1. This may cause issues with some clients. {"metadata":{"emulator":{"name":"functions"},"message":"Port 5000 is available on 127.0.0.1 but not ::1. This may cause issues with some clients."}}
+[warn] ⚠  functions: If you encounter connectivity issues, consider switching to a different port or explicitly specifying "host": "<ip address>" instead of hostname in firebase.json {"metadata":{"emulator":{"name":"functions"},"message":"If you encounter connectivity issues, consider switching to a different port or explicitly specifying \u001b[33m\"host\": \"<ip address>\"\u001b[39m instead of hostname in firebase.json"}}
+[warn] ⚠  functions: Application Default Credentials detected. Non-emulated services will access production using these credentials. Be careful! {"metadata":{"emulator":{"name":"functions"},"message":"Application Default Credentials detected. Non-emulated services will access production using these credentials. Be careful!"}}
+[debug] [2026-05-28T19:58:04.149Z] Checked if tokens are valid: true, expires at: 1779999838232
+[debug] [2026-05-28T19:58:04.149Z] Checked if tokens are valid: true, expires at: 1779999838232
+[debug] [2026-05-28T19:58:04.149Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/server-e98bb/adminSdkConfig [none]
+[debug] [2026-05-28T19:58:04.485Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/server-e98bb/adminSdkConfig 200
+[debug] [2026-05-28T19:58:04.488Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/server-e98bb/adminSdkConfig {"projectId":"server-e98bb","storageBucket":"server-e98bb.firebasestorage.app"}
+[debug] [2026-05-28T19:58:04.525Z] [functions] Watching "/home/user/leader_app_08_09_25/functions" for Cloud Functions...
+[debug] [2026-05-28T19:58:04.541Z] Validating nodejs source
+[debug] [2026-05-28T19:58:05.829Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "24"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "firebase-admin": "^13.6.0",
+    "firebase-functions": "^7.0.0",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.4.1"
+  },
+  "private": true
+}
+[debug] [2026-05-28T19:58:05.830Z] Building nodejs source
+[debug] [2026-05-28T19:58:05.831Z] Failed to find version of module node: reached end of search path /home/user/leader_app_08_09_25/functions/node_modules
+[warn] ⚠  functions: Your requested "node" version "24" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2026-05-28T19:58:05.838Z] Could not find functions.yaml. Must use http discovery
+[debug] [2026-05-28T19:58:05.847Z] Found firebase-functions binary at '/home/user/leader_app_08_09_25/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8499
+
+[debug] [2026-05-28T19:58:07.547Z] Functions emulator received unknown request at path /
+[debug] [2026-05-28T19:58:07.861Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2026-05-28T19:58:07.917Z] [functions] Loaded functions definitions from source: api.
+[debug] [2026-05-28T19:58:07.918Z] [functions[us-central1-api]] http function initialized (http://127.0.0.1:5000/server-e98bb/us-central1/api).
+[info] i  functions: Loaded functions: api 
+[warn] ⚠  functions: The following emulators are not running, calls to these services will affect production: firestore, database, pubsub, storage, eventarc, tasks 
