@@ -214,15 +214,14 @@ export default function EmployeesScreen() {
       },
     ]);
   };
-
   const renderEmployee = ({ item }: { item: Employee }) => (
     <View style={styles.employeeCard}>
       <View style={styles.actions}>
-        <TouchableOpacity style={styles.actionButton} onPress={() => handleDelete(item.id)}>
-          <Ionicons name="trash-outline" size={width * 0.06} color="#EF4444" />
-        </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton} onPress={() => handleEdit(item)}>
           <Ionicons name="pencil" size={width * 0.06} color="#3B82F6" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionButton} onPress={() => handleDelete(item.id)}>
+          <Ionicons name="trash-outline" size={width * 0.06} color="#EF4444" />
         </TouchableOpacity>
       </View>
       <View style={styles.employeeInfo}>
@@ -231,7 +230,7 @@ export default function EmployeesScreen() {
       </View>
     </View>
   );
-
+  
   if (loading) {
     return (
       <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>

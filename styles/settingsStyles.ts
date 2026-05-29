@@ -20,12 +20,12 @@ export const settingsStyles = StyleSheet.create({
     fontSize: normalize(28),
     fontWeight: 'bold',
     color: '#FFF',
-    textAlign: 'right',
+    textAlign: 'left',
   },
   subtitle: {
     fontSize: normalize(14),
     color: '#93C5FD',
-    textAlign: 'right',
+    textAlign: 'left',
     marginTop: normalize(5),
   },
   section: {

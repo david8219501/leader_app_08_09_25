@@ -20,12 +20,12 @@ export const employeesStyles = StyleSheet.create({
     fontSize: normalize(28),
     fontWeight: 'bold',
     color: '#FFF',
-    textAlign: 'right',
+    textAlign: 'left',
   },
   subtitle: {
     fontSize: normalize(14),
     color: '#93C5FD',
-    textAlign: 'right',
+    textAlign: 'left',
     marginTop: normalize(5),
   },
   searchContainer: {
@@ -77,6 +77,9 @@ export const employeesStyles = StyleSheet.create({
   },
   employeeCard: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    direction: 'ltr',  // ← הוסף שורה זו
     backgroundColor: '#FFF',
     padding: normalize(15),
     marginBottom: normalize(10),

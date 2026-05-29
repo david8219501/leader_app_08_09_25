@@ -52,7 +52,7 @@ export default function ScheduleScreen() {
 
   const headerScrollRef = useRef<ScrollView>(null);
   const contentScrollRef = useRef<ScrollView>(null);
-  
+
   const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'];
   const shifts = ['morning', 'noon', 'evening'];
   const shiftNames = { morning: 'בוקר', noon: 'צהריים', evening: 'ערב' };
@@ -74,22 +74,16 @@ export default function ScheduleScreen() {
   const [selectedEmployees, setSelectedEmployees] = useState<string[]>([]);
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
-  // גלילה אוטומטית לתחילת הטבלה (ימין)
   const scrollToStart = () => {
     if (!contentScrollRef.current || !headerScrollRef.current) return;
-    
-    // איפוס מיקום
     contentScrollRef.current.scrollTo({ x: 0, y: 0, animated: false });
     headerScrollRef.current.scrollTo({ x: 0, y: 0, animated: false });
-    
-    // גלילה לסוף (שב-RTL זה הצד הימני)
     setTimeout(() => {
       contentScrollRef.current?.scrollToEnd({ animated: false });
       headerScrollRef.current?.scrollToEnd({ animated: false });
     }, 50);
   };
 
-  // הפעלת גלילה כשהטבלה מוכנה
   useEffect(() => {
     if (isTableReady) {
       const timer = setTimeout(() => {
@@ -99,7 +93,7 @@ export default function ScheduleScreen() {
     }
   }, [isTableReady]);
 
-  // טעינת עובדות ומנהלת
+  // טעינת עובדים ו-token בהתחלה
   useEffect(() => {
     const loadTokenAndEmployees = async () => {
       try {
@@ -112,7 +106,7 @@ export default function ScheduleScreen() {
         const managerResp = await fetch(`${config.SERVER_URL}/manager/profile`, {
           headers: { Authorization: `Bearer ${savedToken}` },
         });
-        
+
         let managerEmployee: Employee | null = null;
         if (managerResp.ok) {
           const managerData = await managerResp.json();
@@ -151,7 +145,14 @@ export default function ScheduleScreen() {
     loadTokenAndEmployees();
   }, []);
 
-  // רענון עובדות בכניסה למסך
+  // ✅ תיקון: loadShifts רץ רק כשיש token, ומגיב לשינוי שבוע
+  useEffect(() => {
+    if (token) {
+      loadShifts();
+    }
+  }, [currentWeekStart, token]);
+
+  // רענון עובדים בכניסה למסך
   useFocusEffect(
     React.useCallback(() => {
       const refreshEmployees = async () => {
@@ -162,7 +163,7 @@ export default function ScheduleScreen() {
           const managerResp = await fetch(`${config.SERVER_URL}/manager/profile`, {
             headers: { Authorization: `Bearer ${savedToken}` },
           });
-          
+
           let managerEmployee: Employee | null = null;
           if (managerResp.ok) {
             const managerData = await managerResp.json();
@@ -191,8 +192,7 @@ export default function ScheduleScreen() {
               setEmployees(employeesList);
             }
           }
-
-          loadShifts();
+          // ✅ הוסר loadShifts() מכאן — useEffect למעלה מטפל בזה
         } catch (error) {
           console.error('Error refreshing employees:', error);
         }
@@ -202,16 +202,11 @@ export default function ScheduleScreen() {
     }, [])
   );
 
-  // טעינת משמרות בהחלפת שבוע
-  useEffect(() => {
-    loadShifts();
-  }, [currentWeekStart]);
-
   const loadShifts = async () => {
     try {
       setSyncing(true);
       if (!token) return;
-      
+
       const weekStart = formatDateForServer(currentWeekStart);
       const response = await fetch(`${config.SERVER_URL}/shifts/${weekStart}`, {
         headers: { 'Authorization': `Bearer ${token}` },
@@ -428,33 +423,25 @@ export default function ScheduleScreen() {
       <View style={styles.header}>
         <Text style={styles.title}>לידר LEADER</Text>
         <View style={styles.weekNav}>
-          <TouchableOpacity 
-            onPress={nextWeek} 
-            style={styles.navButton}
-            activeOpacity={0.7}
-          >
+          <TouchableOpacity onPress={nextWeek} style={styles.navButton} activeOpacity={0.7}>
             <Ionicons name="chevron-forward" size={28} color="#FFF" />
           </TouchableOpacity>
-          
+
           <View style={styles.weekContainer}>
             <Text style={styles.weekText}>
               {weekDates[0]} - {weekDates[5]}
             </Text>
           </View>
-          
-          <TouchableOpacity 
-            onPress={previousWeek} 
-            style={styles.navButton}
-            activeOpacity={0.7}
-          >
+
+          <TouchableOpacity onPress={previousWeek} style={styles.navButton} activeOpacity={0.7}>
             <Ionicons name="chevron-back" size={28} color="#FFF" />
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.tableWrapper}>
-        <ScrollView 
-          horizontal 
+        <ScrollView
+          horizontal
           showsHorizontalScrollIndicator={false}
           ref={headerScrollRef}
           scrollEnabled={false}
@@ -474,8 +461,8 @@ export default function ScheduleScreen() {
         </ScrollView>
 
         <View style={styles.scrollableWrapper}>
-          <ScrollView 
-            horizontal 
+          <ScrollView
+            horizontal
             showsHorizontalScrollIndicator={true}
             ref={contentScrollRef}
             style={styles.horizontalScroll}
@@ -522,29 +509,23 @@ export default function ScheduleScreen() {
           <Text style={styles.actionButtonText}>איפוס</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.actionButton, showNoonShift ? styles.noonButtonActive : styles.noonButtonInactive]} 
+        <TouchableOpacity
+          style={[styles.actionButton, showNoonShift ? styles.noonButtonActive : styles.noonButtonInactive]}
           onPress={() => setShowNoonShift(!showNoonShift)}
         >
-          <Ionicons 
-            name={showNoonShift ? "checkmark-circle" : "close-circle"} 
-            size={20} 
-            color="#FFF" 
-          />
+          <Ionicons name={showNoonShift ? 'checkmark-circle' : 'close-circle'} size={20} color="#FFF" />
           <Text style={styles.actionButtonText}>
             {showNoonShift ? 'צהריים: פעיל' : 'צהריים: כבוי'}
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.actionButton, styles.shareButton]} 
+        <TouchableOpacity
+          style={[styles.actionButton, styles.shareButton]}
           onPress={shareSchedule}
           disabled={isGeneratingPDF}
         >
           <Ionicons name="share-social" size={20} color="#FFF" />
-          <Text style={styles.actionButtonText}>
-            {isGeneratingPDF ? 'מייצר...' : 'שתף'}
-          </Text>
+          <Text style={styles.actionButtonText}>{isGeneratingPDF ? 'מייצר...' : 'שתף'}</Text>
         </TouchableOpacity>
       </View>
 
@@ -570,7 +551,7 @@ export default function ScheduleScreen() {
                     style={[
                       styles.employeeItem,
                       isSelected && styles.employeeItemSelected,
-                      item.isManager && { backgroundColor: '#E0E7FF' }
+                      item.isManager && { backgroundColor: '#E0E7FF' },
                     ]}
                     onPress={() => toggleEmployee(item.id)}
                   >
@@ -584,8 +565,8 @@ export default function ScheduleScreen() {
               }}
             />
 
-            <TouchableOpacity 
-              style={[styles.saveButton, syncing && { opacity: 0.6 }]} 
+            <TouchableOpacity
+              style={[styles.saveButton, syncing && { opacity: 0.6 }]}
               onPress={saveSelection}
               disabled={syncing}
             >
