@@ -1,13 +1,10 @@
-import { StyleSheet, Dimensions, I18nManager } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
 const baseWidth = 360;
 const scale = width / baseWidth;
 const normalize = (size: number) => Math.round(size * scale);
-
-// ✅ וידוא שה-RTL פעיל
-I18nManager.allowRTL(true);
 
 export const scheduleStyles = StyleSheet.create({
   container: {
@@ -31,7 +28,7 @@ export const scheduleStyles = StyleSheet.create({
     marginTop: normalize(5),
   },
   weekNav: {
-    flexDirection: 'row-reverse', // ✅ תמיד RTL
+    flexDirection: 'row',
     alignItems: 'center',
     marginTop: normalize(15),
     gap: normalize(15),
@@ -56,10 +53,9 @@ export const scheduleStyles = StyleSheet.create({
     fontSize: normalize(16),
     color: '#FFF',
     fontWeight: '600',
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
   toggleContainer: {
-    flexDirection: 'row-reverse', // ✅ תמיד RTL
+    flexDirection: 'row',
     alignItems: 'center',
     marginTop: normalize(15),
     gap: normalize(10),
@@ -68,7 +64,6 @@ export const scheduleStyles = StyleSheet.create({
     fontSize: normalize(16),
     color: '#FFF',
     fontWeight: '600',
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
   toggleButton: {
     width: normalize(50),
@@ -105,7 +100,7 @@ export const scheduleStyles = StyleSheet.create({
     overflow: 'hidden',
   },
   headerRow: {
-    flexDirection: 'row-reverse', // ✅ תמיד RTL
+    flexDirection: 'row',
   },
   scrollableWrapper: {
     flex: 1,
@@ -125,7 +120,7 @@ export const scheduleStyles = StyleSheet.create({
     minWidth: width * 2,
   },
   tableRow: {
-    flexDirection: 'row-reverse', // ✅ תמיד RTL
+    flexDirection: 'row',
   },
   cell: {
     paddingVertical: normalize(12),
@@ -145,13 +140,11 @@ export const scheduleStyles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: normalize(14),
     textAlign: 'center',
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
   dateText: {
     color: '#93C5FD',
     fontSize: normalize(12),
     marginTop: normalize(2),
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
   shiftCell: {
     backgroundColor: '#3B82F6',
@@ -160,7 +153,6 @@ export const scheduleStyles = StyleSheet.create({
     color: '#FFF',
     fontWeight: 'bold',
     fontSize: normalize(14),
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
   shiftLabelCell: {
     width: normalize(80),
@@ -176,17 +168,15 @@ export const scheduleStyles = StyleSheet.create({
     color: '#CBD5E1',
     fontSize: normalize(12),
     textAlign: 'center',
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
   employeeName: {
     fontSize: normalize(13),
     color: '#1E293B',
     textAlign: 'center',
     marginVertical: normalize(2),
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
   actions: {
-    flexDirection: 'row-reverse', // ✅ תמיד RTL
+    flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: 'transparent',
     paddingVertical: normalize(8),
@@ -195,7 +185,7 @@ export const scheduleStyles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   actionButton: {
-    flexDirection: 'row-reverse', // ✅ תמיד RTL
+    flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: normalize(8),
     paddingHorizontal: normalize(14),
@@ -212,7 +202,6 @@ export const scheduleStyles = StyleSheet.create({
     color: '#FFF',
     fontWeight: '700',
     fontSize: normalize(13),
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
   resetButton: {
     backgroundColor: '#EF4444',
@@ -240,7 +229,7 @@ export const scheduleStyles = StyleSheet.create({
     padding: normalize(20),
   },
   modalHeader: {
-    flexDirection: 'row-reverse', // ✅ תמיד RTL
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: normalize(20),
@@ -249,10 +238,9 @@ export const scheduleStyles = StyleSheet.create({
     fontSize: normalize(20),
     fontWeight: 'bold',
     color: '#1E293B',
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
   employeeItem: {
-    flexDirection: 'row-reverse', // ✅ תמיד RTL
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: normalize(12),
@@ -268,12 +256,10 @@ export const scheduleStyles = StyleSheet.create({
   employeeItemText: {
     fontSize: normalize(15),
     color: '#1E293B',
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
   employeeItemTextSelected: {
     fontWeight: 'bold',
     color: '#166534',
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
   saveButton: {
     backgroundColor: '#1E3A8A',
@@ -286,6 +272,5 @@ export const scheduleStyles = StyleSheet.create({
     color: '#FFF',
     fontSize: normalize(16),
     fontWeight: 'bold',
-    writingDirection: 'rtl', // ✅ כיוון כתיבה RTL
   },
 });

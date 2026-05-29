@@ -41,7 +41,7 @@ export const settingsStyles = StyleSheet.create({
     elevation: 3,
   },
   sectionHeader: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     marginBottom: normalize(15),
     gap: normalize(10),
@@ -65,7 +65,7 @@ export const settingsStyles = StyleSheet.create({
     backgroundColor: '#1E3A8A',
     borderRadius: normalize(10),
     padding: normalize(16),
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: normalize(8),
@@ -81,7 +81,7 @@ export const settingsStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   linkButton: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: normalize(15),
@@ -93,11 +93,11 @@ export const settingsStyles = StyleSheet.create({
     flex: 1,
     fontSize: normalize(16),
     color: '#1E293B',
-    marginRight: normalize(10),
+    marginLeft: normalize(10),
     textAlign: 'right',
   },
   infoRow: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: normalize(12),
@@ -114,7 +114,7 @@ export const settingsStyles = StyleSheet.create({
     fontWeight: '600',
   },
   logoutButton: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FEF2F2',
@@ -150,7 +150,7 @@ export const settingsStyles = StyleSheet.create({
     elevation: 10,
   },
   modalHeader: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: normalize(20),

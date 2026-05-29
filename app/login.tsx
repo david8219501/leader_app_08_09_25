@@ -64,10 +64,8 @@ export default function LoginScreen() {
       const data = await response.json();
 
       if (response.ok) {
-        // שמור Token ו-Manager ID
         await AsyncStorage.setItem('token', data.token);
         await AsyncStorage.setItem('managerId', data.manager.id.toString());
-        
         Alert.alert('הצלחה', `שלום ${data.manager.firstName}`);
         router.replace('/(tabs)/schedule');
       } else {
@@ -126,7 +124,6 @@ export default function LoginScreen() {
       if (response.ok) {
         Alert.alert('הצלחה', 'נרשמת בהצלחה!');
         setActiveTab('login');
-        // ריסט שדות
         setFirstName('');
         setLastName('');
         setPhone('');

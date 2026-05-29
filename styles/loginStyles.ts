@@ -1,7 +1,9 @@
+// loginStyles.ts
 import { StyleSheet, Dimensions } from 'react-native';
+import { I18nManager } from 'react-native';
+console.log('isRTL:', I18nManager.isRTL);
 
-const { width, height } = Dimensions.get('window');
-
+const { width } = Dimensions.get('window');
 const baseWidth = 360;
 const scale = width / baseWidth;
 const normalize = (size: number) => Math.round(size * scale);
@@ -85,26 +87,23 @@ export const loginStyles = StyleSheet.create({
     textAlign: 'right',
   },
   passwordContainer: {
-    flexDirection: 'row',
+    flexDirection: 'row',  // row רגיל — כי isRTL=true הופך אותו אוטומטית
     alignItems: 'center',
     backgroundColor: '#F8FAFC',
     borderWidth: 1,
     borderColor: '#E2E8F0',
     borderRadius: normalize(10),
     marginBottom: normalize(15),
-    position: 'relative',
   },
   passwordInput: {
     flex: 1,
     padding: normalize(15),
-    paddingLeft: normalize(50),
     fontSize: normalize(16),
     textAlign: 'right',
   },
   eyeIcon: {
-    position: 'absolute',
-    left: normalize(15),
-    padding: normalize(5),
+    paddingHorizontal: normalize(12),
+    paddingVertical: normalize(5),
   },
   eyeText: {
     fontSize: normalize(20),

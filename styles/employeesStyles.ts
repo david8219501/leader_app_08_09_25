@@ -29,7 +29,7 @@ export const employeesStyles = StyleSheet.create({
     marginTop: normalize(5),
   },
   searchContainer: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#FFF',
     margin: normalize(20),
@@ -42,7 +42,7 @@ export const employeesStyles = StyleSheet.create({
     elevation: 3,
   },
   searchIcon: {
-    marginLeft: normalize(10),
+    marginRight: normalize(10),
   },
   searchInput: {
     flex: 1,
@@ -51,7 +51,7 @@ export const employeesStyles = StyleSheet.create({
     textAlign: 'right',
   },
   addButton: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#10B981',
@@ -69,14 +69,14 @@ export const employeesStyles = StyleSheet.create({
     color: '#FFF',
     fontSize: normalize(16),
     fontWeight: 'bold',
-    marginRight: normalize(8),
+    marginLeft: normalize(8),
   },
   list: {
     paddingHorizontal: normalize(20),
     paddingBottom: normalize(20),
   },
   employeeCard: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     backgroundColor: '#FFF',
     padding: normalize(15),
     marginBottom: normalize(10),
@@ -95,7 +95,7 @@ export const employeesStyles = StyleSheet.create({
     flex: 1,
   },
   nameRow: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     marginBottom: normalize(5),
   },
@@ -110,7 +110,7 @@ export const employeesStyles = StyleSheet.create({
     paddingHorizontal: normalize(8),
     paddingVertical: normalize(2),
     borderRadius: normalize(4),
-    marginLeft: normalize(8),
+    marginRight: normalize(8),
   },
   inactiveBadgeText: {
     fontSize: normalize(12),
@@ -122,13 +122,13 @@ export const employeesStyles = StyleSheet.create({
     textAlign: 'right',
   },
   actions: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   actionButton: {
     padding: normalize(10),
-    marginLeft: normalize(8),
+    marginRight: normalize(8),
     borderRadius: normalize(50),
     backgroundColor: '#F1F5F9',
     justifyContent: 'center',
@@ -166,7 +166,7 @@ export const employeesStyles = StyleSheet.create({
     elevation: 10,
   },
   modalHeader: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: normalize(20),
@@ -187,7 +187,7 @@ export const employeesStyles = StyleSheet.create({
     textAlign: 'right',
   },
   activeToggle: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: normalize(20),

@@ -32,16 +32,6 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
-        name="settings"
-        options={{
-          title: 'הגדרות',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="settings" size={size} color={color} />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
         name="employees"
         options={{
           title: 'עובדות',
@@ -50,13 +40,24 @@ export default function TabsLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="schedule"
         options={{
           title: 'טבלת שעות',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar" size={size} color={color} />
+          ),
+        }}
+      />
+
+      
+
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'הגדרות',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} />
           ),
         }}
       />

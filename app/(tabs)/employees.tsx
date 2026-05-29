@@ -36,7 +36,6 @@ export default function EmployeesScreen() {
   const [syncing, setSyncing] = useState(false);
   const [token, setToken] = useState('');
 
-  // Form state
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -55,31 +54,21 @@ export default function EmployeesScreen() {
     try {
       setLoading(true);
       const savedToken = await AsyncStorage.getItem('token');
-      
       if (!savedToken) {
         Alert.alert('שגיאה', 'לא נמצא token. אנא התחבר מחדש');
         return;
       }
-
       setToken(savedToken);
-
-      // שליפת פרטי המנהלת (תמיד מעודכן!)
       const managerResponse = await fetch(`${config.SERVER_URL}/manager/profile`, {
         method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${savedToken}`,
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Authorization': `Bearer ${savedToken}`, 'Content-Type': 'application/json' },
       });
-
       if (managerResponse.ok) {
         const managerData = await managerResponse.json();
         setManager(managerData);
       }
-
       await refreshEmployees();
     } catch (error) {
-      console.error('Error loading employees:', error);
       Alert.alert('שגיאה', 'לא ניתן לטעון את רשימת העובדות');
     } finally {
       setLoading(false);
@@ -89,31 +78,19 @@ export default function EmployeesScreen() {
   const refreshEmployees = async () => {
     const savedToken = await AsyncStorage.getItem('token');
     if (!savedToken) return;
-
     try {
-      // שליפת פרטי המנהלת המעודכנים
       const managerResponse = await fetch(`${config.SERVER_URL}/manager/profile`, {
         method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${savedToken}`,
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Authorization': `Bearer ${savedToken}`, 'Content-Type': 'application/json' },
       });
-
       if (managerResponse.ok) {
         const managerData = await managerResponse.json();
         setManager(managerData);
       }
-
-      // שליפת עובדות
       const response = await fetch(`${config.SERVER_URL}/employees`, {
         method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${savedToken}`,
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Authorization': `Bearer ${savedToken}`, 'Content-Type': 'application/json' },
       });
-
       if (response.ok) {
         const data = await response.json();
         const mappedEmployees = data.map((emp: any) => ({
@@ -130,11 +107,9 @@ export default function EmployeesScreen() {
     }
   };
 
-  // סינון עובדות (בלי המנהלת)
-  const filteredEmployees = employees.filter((emp) => {
-    // סינון לפי חיפוש
-    return `${emp.firstName} ${emp.lastName}`.toLowerCase().includes(searchQuery.toLowerCase());
-  });
+  const filteredEmployees = employees.filter((emp) =>
+    `${emp.firstName} ${emp.lastName}`.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleAdd = () => {
     setEditingEmployee(null);
@@ -166,7 +141,6 @@ export default function EmployeesScreen() {
       Alert.alert('שגיאה', 'אנא מלא את השם');
       return false;
     }
-
     if (phone) {
       const phoneDigits = phone.replace(/\D/g, '');
       if (phoneDigits.length !== 10) {
@@ -174,65 +148,42 @@ export default function EmployeesScreen() {
         return false;
       }
     }
-
     return true;
   };
 
   const handleSave = async () => {
     if (!validateForm()) return;
-
     try {
       setSyncing(true);
       const cleanPhone = phone.replace(/\D/g, '');
-
       if (editingEmployee) {
         const response = await fetch(`${config.SERVER_URL}/employees/${editingEmployee.id}`, {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            firstName: firstName.trim(),
-            lastName: lastName.trim(),
-            phone: cleanPhone || null,
-          }),
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), phone: cleanPhone || null }),
         });
-
         if (!response.ok) {
           const errData = await response.json();
           throw new Error(errData.message || 'Failed to update employee');
         }
-
         await refreshEmployees();
         Alert.alert('הצלחה', 'העובדת עודכנה בהצלחה');
       } else {
         const response = await fetch(`${config.SERVER_URL}/employees`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            firstName: firstName.trim(),
-            lastName: lastName.trim(),
-            phone: cleanPhone || null,
-          }),
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), phone: cleanPhone || null }),
         });
-
         if (!response.ok) {
           const errData = await response.json();
           throw new Error(errData.message || 'Failed to add employee');
         }
-
         await refreshEmployees();
         Alert.alert('הצלחה', 'העובדת נוספה בהצלחה');
       }
-
       setModalVisible(false);
     } catch (error: any) {
-      Alert.alert('שגיאה', error.message || 'לא ניתן לשמור את העובדת. בדוק את החיבור לשרת');
-      console.error('Save error:', error);
+      Alert.alert('שגיאה', error.message || 'לא ניתן לשמור את העובדת');
     } finally {
       setSyncing(false);
     }
@@ -247,18 +198,11 @@ export default function EmployeesScreen() {
         onPress: async () => {
           try {
             setSyncing(true);
-            
             const response = await fetch(`${config.SERVER_URL}/employees/${id}`, {
               method: 'DELETE',
-              headers: {
-                'Authorization': `Bearer ${token}`,
-              },
+              headers: { 'Authorization': `Bearer ${token}` },
             });
-
-            if (!response.ok) {
-              throw new Error('Failed to delete employee');
-            }
-
+            if (!response.ok) throw new Error('Failed to delete employee');
             await refreshEmployees();
             Alert.alert('הצלחה', 'העובדת נמחקה בהצלחה');
           } catch (error) {
@@ -273,27 +217,17 @@ export default function EmployeesScreen() {
 
   const renderEmployee = ({ item }: { item: Employee }) => (
     <View style={styles.employeeCard}>
-      <View style={styles.employeeInfo}>
-        <Text style={styles.employeeName}>
-          {item.firstName} {item.lastName}
-        </Text>
-        {item.phone && <Text style={styles.employeePhone}>{item.phone}</Text>}
-      </View>
-
       <View style={styles.actions}>
-        <TouchableOpacity
-          style={styles.actionButton}
-          onPress={() => handleEdit(item)}
-        >
-          <Ionicons name="pencil" size={width * 0.06} color="#3B82F6" />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.actionButton}
-          onPress={() => handleDelete(item.id)}
-        >
+        <TouchableOpacity style={styles.actionButton} onPress={() => handleDelete(item.id)}>
           <Ionicons name="trash-outline" size={width * 0.06} color="#EF4444" />
         </TouchableOpacity>
+        <TouchableOpacity style={styles.actionButton} onPress={() => handleEdit(item)}>
+          <Ionicons name="pencil" size={width * 0.06} color="#3B82F6" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.employeeInfo}>
+        <Text style={styles.employeeName}>{item.firstName} {item.lastName}</Text>
+        {item.phone && <Text style={styles.employeePhone}>{item.phone}</Text>}
       </View>
     </View>
   );
@@ -315,7 +249,6 @@ export default function EmployeesScreen() {
       </View>
 
       <View style={styles.searchContainer}>
-        <Ionicons name="search" size={width * 0.05} color="#64748B" style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="חיפוש עובדת..."
@@ -324,11 +257,12 @@ export default function EmployeesScreen() {
           onChangeText={setSearchQuery}
           textAlign="right"
         />
+        <Ionicons name="search" size={width * 0.05} color="#64748B" style={styles.searchIcon} />
       </View>
 
       <TouchableOpacity style={styles.addButton} onPress={handleAdd}>
-        <Ionicons name="add-circle" size={width * 0.06} color="#FFF" />
         <Text style={styles.addButtonText}>הוסף עובדת חדשה</Text>
+        <Ionicons name="add-circle" size={width * 0.06} color="#FFF" />
       </TouchableOpacity>
 
       <FlatList
@@ -383,7 +317,6 @@ export default function EmployeesScreen() {
               textAlign="right"
               editable={!syncing}
             />
-
             <TextInput
               style={styles.input}
               placeholder="שם משפחה"
@@ -393,7 +326,6 @@ export default function EmployeesScreen() {
               textAlign="right"
               editable={!syncing}
             />
-
             <TextInput
               style={styles.input}
               placeholder="טלפון (10 ספרות) - אופציונלי"
@@ -406,8 +338,8 @@ export default function EmployeesScreen() {
               editable={!syncing}
             />
 
-            <TouchableOpacity 
-              style={[styles.saveButton, syncing && { opacity: 0.6 }]} 
+            <TouchableOpacity
+              style={[styles.saveButton, syncing && { opacity: 0.6 }]}
               onPress={handleSave}
               disabled={syncing}
             >
